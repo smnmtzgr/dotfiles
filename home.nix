@@ -76,6 +76,16 @@ in
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    # OSC 7 meldet dem Terminal das aktuelle Verzeichnis. Ohne das kann WezTerm
+    # es nicht ermitteln, und ein neuer Tab oeffnet nicht dort, wo man gerade ist.
+    initContent = ''
+      _osc7_cwd() {
+        printf '\033]7;file://%s%s\033\\' "''${HOST}" "''${PWD}"
+      }
+      autoload -Uz add-zsh-hook
+      add-zsh-hook chpwd _osc7_cwd
+      _osc7_cwd
+    '';
     shellAliases = {
       ".." = "cd ..";
       add = "git add .";
