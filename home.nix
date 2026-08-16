@@ -96,6 +96,11 @@ in
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
+      # gh als Credential-Helper fuer HTTPS-Remotes. Muss hier stehen, weil
+      # `gh auth setup-git` in die von Nix verwaltete, read-only gitconfig
+      # schreiben wuerde.
+      credential."https://github.com".helper = "!${pkgs.gh}/bin/gh auth git-credential";
+      credential."https://gist.github.com".helper = "!${pkgs.gh}/bin/gh auth git-credential";
     };
   };
 
