@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Tastenkürzel – WezTerm &amp; herdr</title>
+<style>
+  @page { size: A4 portrait; margin: 12mm 10mm; }
+
+  :root {
+    --ink: #14161a;
+    --muted: #5b6169;
+    --rule: #c9ced6;
+    --rule-soft: #e6e9ee;
+    --accent: #2f3f8f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 8.6pt;
+    line-height: 1.35;
+    color: var(--ink);
+    background: #fff;
+  }
+
+  header {
+    border-bottom: 1.6pt solid var(--ink);
+    padding-bottom: 5pt;
+    margin-bottom: 9pt;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10pt;
+  }
+  h1 { font-size: 15pt; margin: 0; letter-spacing: -0.2pt; }
+  header .sub { font-size: 8pt; color: var(--muted); text-align: right; }
+
+  .columns { column-count: 2; column-gap: 9mm; column-fill: balance; }
+
+  section { break-inside: avoid; margin-bottom: 8pt; }
+
+  h2 {
+    font-size: 10.5pt;
+    margin: 0 0 4pt;
+    padding-bottom: 2pt;
+    border-bottom: 1pt solid var(--ink);
+    letter-spacing: -0.1pt;
+  }
+  h2 .badge {
+    font-size: 7.2pt;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+
+  h3 {
+    font-size: 8.4pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    color: var(--accent);
+    margin: 7pt 0 2.5pt;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 1.7pt 0; vertical-align: baseline; border-bottom: 0.4pt solid var(--rule-soft); }
+  tr:last-child td { border-bottom: none; }
+  td.k { white-space: nowrap; padding-right: 5pt; width: 1%; }
+  td.d { color: var(--ink); }
+
+  kbd {
+    font-family: "Consolas", "SF Mono", "Menlo", monospace;
+    font-size: 7.6pt;
+    border: 0.5pt solid var(--rule);
+    border-bottom-width: 1.2pt;
+    border-radius: 2.5pt;
+    padding: 0.7pt 3pt;
+    background: #f7f8fa;
+    white-space: nowrap;
+  }
+  .sep { color: var(--muted); padding: 0 1pt; font-size: 7.5pt; }
+
+  .note {
+    font-size: 7.6pt;
+    color: var(--muted);
+    border-left: 2pt solid var(--rule);
+    padding: 3pt 0 3pt 6pt;
+    margin: 5pt 0 0;
+  }
+  .note strong { color: var(--ink); }
+
+  footer {
+    margin-top: 9pt;
+    padding-top: 4pt;
+    border-top: 0.6pt solid var(--rule);
+    font-size: 7.2pt;
+    color: var(--muted);
+    column-span: all;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Tastenkürzel</h1>
+  <div class="sub">
+    WezTerm auf Windows &middot; herdr in der WSL<br>
+    Stand 16.08.2026 &middot; deutsche Tastatur
+  </div>
+</header>
+
+<div class="columns">
+
+  <section>
+    <h2>WezTerm <span class="badge">— das Fenster auf Windows</span></h2>
+    <h3>Tabs</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>T</kbd></td><td class="d">Neuer Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>W</kbd></td><td class="d">Tab schließen (fragt nach)</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Tab</kbd></td><td class="d">Nächster Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Tab</kbd></td><td class="d">Vorheriger Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Bild↑</kbd> <span class="sep">/</span> <kbd>Bild↓</kbd></td><td class="d">Vorheriger / nächster Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>1</kbd>…<kbd>8</kbd></td><td class="d">Direkt zu Tab 1–8</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>9</kbd></td><td class="d">Letzter Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Bild↑</kbd> <span class="sep">/</span> <kbd>Bild↓</kbd></td><td class="d">Tab nach links / rechts schieben</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>N</kbd></td><td class="d">Neues Fenster</td></tr>
+    </table>
+
+    <h3>Bereiche teilen</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>5</kbd></td><td class="d">Teilen — neuer Bereich rechts</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>2</kbd></td><td class="d">Teilen — neuer Bereich unten</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>←↑↓→</kbd></td><td class="d">Bereich wechseln</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Alt</kbd><span class="sep">+</span><kbd>←↑↓→</kbd></td><td class="d">Bereich größer / kleiner</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Z</kbd></td><td class="d">Bereich auf Vollbild (Toggle)</td></tr>
+    </table>
+
+    <h3>Text, Suche, Scrollen</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>C</kbd> <span class="sep">/</span> <kbd>V</kbd></td><td class="d">Kopieren / Einfügen</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>F</kbd></td><td class="d">Im Scrollback suchen</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>X</kbd></td><td class="d">Copy-Mode (Auswahl per Tastatur)</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>Leer</kbd></td><td class="d">QuickSelect — Pfade, URLs, Hashes</td></tr>
+      <tr><td class="k"><kbd>Shift</kbd><span class="sep">+</span><kbd>Bild↑</kbd> <span class="sep">/</span> <kbd>Bild↓</kbd></td><td class="d">Seitenweise scrollen</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>K</kbd></td><td class="d">Scrollback löschen</td></tr>
+    </table>
+
+    <h3>Ansicht &amp; Werkzeuge</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>+</kbd> <span class="sep">/</span> <kbd>-</kbd> <span class="sep">/</span> <kbd>0</kbd></td><td class="d">Schrift größer / kleiner / zurück</td></tr>
+      <tr><td class="k"><kbd>Alt</kbd><span class="sep">+</span><kbd>Enter</kbd></td><td class="d">Vollbild</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>P</kbd></td><td class="d">Befehlspalette</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>R</kbd></td><td class="d">Konfiguration neu laden</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>L</kbd></td><td class="d">Debug-Overlay (Fehler in der Config)</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>Shift</kbd><span class="sep">+</span><kbd>U</kbd></td><td class="d">Zeichen / Emoji einfügen</td></tr>
+    </table>
+
+    <p class="note">
+      Die Konfiguration liegt in <strong>~/code/dotfiles/home/.config/wezterm/</strong> und wird über
+      einen Stub in <strong>C:\Users\simon\.wezterm.lua</strong> geladen. Deshalb greift WezTerms
+      Auto-Reload nicht — nach Änderungen <kbd>Strg</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> drücken oder
+      WezTerm neu starten.
+    </p>
+  </section>
+
+  <section>
+    <h2>herdr <span class="badge">— der Multiplexer in der WSL</span></h2>
+    <p class="note" style="margin-top:0">
+      Alles beginnt mit dem Prefix <kbd>Strg</kbd>+<kbd>B</kbd>: drücken, <strong>loslassen</strong>,
+      dann die Taste. Starten mit <kbd>herdr</kbd>.
+    </p>
+
+    <h3>Tabs</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>c</kbd></td><td class="d">Neuer Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>&amp;</kbd></td><td class="d">Tab schließen</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>n</kbd></td><td class="d">Nächster Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>p</kbd></td><td class="d">Vorheriger Tab</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>1</kbd>…<kbd>9</kbd></td><td class="d">Direkt zu Tab 1–9</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>g</kbd></td><td class="d">Goto — Sprungliste über alles</td></tr>
+    </table>
+
+    <h3>Bereiche</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>"</kbd></td><td class="d">Horizontal teilen <span style="color:var(--muted)">(Shift+2)</span></td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>%</kbd></td><td class="d">Vertikal teilen <span style="color:var(--muted)">(Shift+5)</span></td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td><td class="d">Bereich links / unten / oben / rechts</td></tr>
+    </table>
+
+    <h3>Workspaces &amp; Agents</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>w</kbd></td><td class="d">Workspace-Picker</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>Shift</kbd><span class="sep">+</span><kbd>1</kbd>…<kbd>9</kbd></td><td class="d">Direkt zu Workspace 1–9</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>Alt</kbd><span class="sep">+</span><kbd>1</kbd>…<kbd>9</kbd></td><td class="d">Agent 1–9 fokussieren</td></tr>
+    </table>
+
+    <h3>Sitzung</h3>
+    <table>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>y</kbd></td><td class="d">Copy-Mode</td></tr>
+      <tr><td class="k"><kbd>Strg</kbd><span class="sep">+</span><kbd>B</kbd> <span class="sep">→</span> <kbd>q</kbd></td><td class="d">Detach — Session läuft weiter</td></tr>
+      <tr><td class="k"><kbd>herdr</kbd></td><td class="d">Wieder anhängen</td></tr>
+    </table>
+
+    <p class="note">
+      Im Copy-Mode sind die inneren Tasten fest: <kbd>v</kbd> oder <kbd>Leer</kbd> auswählen,
+      <kbd>y</kbd> oder <kbd>Enter</kbd> kopieren, <kbd>q</kbd> oder <kbd>Esc</kbd> abbrechen.
+    </p>
+    <p class="note">
+      <strong>Warum herdr statt WezTerm-Tabs:</strong> herdr-Sessions überleben das Schließen des
+      Terminals, jede Pane ist als <em>working / blocked / idle</em> markiert, und firstmate legt
+      seine Crewmates in herdr-Tabs ab. WezTerm-Tabs kann firstmate nicht ansteuern.
+    </p>
+  </section>
+
+</div>
+
+<footer>
+  <span>~/code/dotfiles &middot; github.com/smnmtzgr/dotfiles</span>
+  <span>Prefix <kbd>Strg</kbd>+<kbd>B</kbd> immer erst loslassen</span>
+</footer>
+
+</body>
+</html>
