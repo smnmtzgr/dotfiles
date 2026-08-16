@@ -68,6 +68,8 @@ in
 
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-global/bin"
+    # treehouse und no-mistakes - von firstmates Installern hierher gelegt.
+    "${config.home.homeDirectory}/.local/bin"
   ];
 
   programs.zsh = {
