@@ -1,0 +1,18 @@
+# Nix
+result
+result-*
+.direnv/
+
+# Claude Code: lokale, maschinenspezifische Overrides und Credentials
+**/.claude/settings.local.json
+**/.claude/.credentials.json
+**/.credentials.json
+
+# herdr Runtime-State
+*.log
+session.json
+*.sock
+
+# Editor / OS
+.DS_Store
+*.swp
