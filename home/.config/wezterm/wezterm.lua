@@ -6,6 +6,17 @@ local config = wezterm.config_builder()
 -- Diese Datei wird von C:\Users\simon\.wezterm.lua per dofile() geladen.
 config.default_domain = "WSL:Ubuntu"
 
+-- default_domain allein legt nur fest, wo die Shell laeuft - das Arbeitsverzeichnis
+-- erbt WezTerm sonst vom Windows-Prozess und landet in /mnt/c/Users/simon.
+-- Die automatisch erkannten Domains uebernehmen und nur das cwd ergaenzen.
+local wsl_domains = wezterm.default_wsl_domains()
+for _, domain in ipairs(wsl_domains) do
+	if domain.name == "WSL:Ubuntu" then
+		domain.default_cwd = "/home/simon"
+	end
+end
+config.wsl_domains = wsl_domains
+
 config.color_scheme = "rose-pine-moon"
 config.font = wezterm.font("Hack Nerd Font")
 config.font_size = 9.0
