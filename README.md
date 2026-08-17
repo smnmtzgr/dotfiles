@@ -35,6 +35,11 @@ nix run home-manager/master -- switch --flake ~/code/dotfiles#simon
 | `hmu herdr` | Update a single input, then apply |
 | `nix flake check --no-build` | Validate without changing anything |
 | `home-manager generations` | List generations; roll back with `<path>/activate` |
+| `home-manager news --flake .#simon` | Read release notes for the modules in use |
+
+Note that there is no `~/.config/home-manager/` - the configuration lives here instead. Any
+`home-manager` subcommand therefore needs `--flake ~/code/dotfiles#simon`, otherwise it reports
+"No configuration file found". `rebuild.sh` and the `hm` / `hmu` helpers pass it for you.
 
 Everything under `home/` is symlinked **live** into this repo via `mkOutOfStoreSymlink`: the nvim,
 WezTerm, herdr and Claude configs take effect the moment you save, no rebuild needed. Only
