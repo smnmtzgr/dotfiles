@@ -1,48 +1,45 @@
-# Globale Agent-Anweisungen
+# Global agent instructions
 
-Diese Datei gilt für alle Projekte. Was nur für ein Projekt gilt, steht in dessen eigener
-`AGENTS.md` und gehört nicht hierher.
+This file applies to every project. Anything specific to a single project belongs in that
+project's own `AGENTS.md`, not here.
 
-## Sprache
+## Language
 
-Kommunikation auf Deutsch, mit korrekten Umlauten. Code, Bezeichner, Commit-Messages und
-Dateinamen bleiben englisch, sofern das Projekt es nicht anders vorgibt.
+Communicate with me in German, with correct umlauts. Code, identifiers, commit messages,
+documentation and file names stay English unless a project says otherwise.
 
-## Doku gehört zur Änderung
+## Docs are part of the change
 
-Wer Verhalten ändert, ändert die Dokumentation im **selben** Pull Request mit. Nicht danach,
-nicht demnächst - danach passiert es nie. Falsche Doku ist schlimmer als keine: sie kostet
-niemanden Zeit beim Schreiben, aber jeden beim Lesen, und man merkt es erst, wenn man ihr
-geglaubt hat.
+Whoever changes behaviour updates the documentation in the **same** pull request. Not afterwards,
+not soon - afterwards never happens. Wrong documentation is worse than none: it costs nobody time
+to write, but everybody time to read, and you only notice once you have believed it.
 
-Auto-generierte Dateien und `CHANGELOG.md` werden nie von Hand editiert, wenn das Projekt sie
-generiert.
+Never hand-edit auto-generated files or `CHANGELOG.md` when the project generates them.
 
-## Technische Entscheidungen
+## Technical decisions
 
-Entwicklungskosten sind ein schwaches Argument. Gewichte stattdessen Qualität, Einfachheit,
-Robustheit und langfristige Wartbarkeit.
+Development cost is a weak argument. Weigh quality, simplicity, robustness and long-term
+maintainability instead.
 
-Für einmalige oder seltene Arbeiten: nimm den einfachsten direkten Weg von Anfang bis Ende.
-Keine Wrapper, keine Abstraktionsschichten, keine eigenen Verifizierer, keine Automatisierung -
-es sei denn, der direkte Weg stößt auf einen konkreten Blocker oder wiederholten Bedarf, der
-die zusätzliche Maschinerie rechtfertigt.
+For one-off or infrequent work, take the simplest direct path from start to finish. No wrappers,
+no abstraction layers, no custom verifiers, no automation - unless the direct path hits a concrete
+blocker or a repeated need that justifies the extra machinery.
 
-## Bugfixes
+## Bug fixes
 
-Immer damit anfangen, den Fehler end-to-end zu reproduzieren, so nah wie möglich daran, wie ein
-Endnutzer ihn erlebt. Erst dann fixen.
+Always start by reproducing the bug end to end, as close as possible to how an end user
+experiences it. Only then fix it.
 
-## Qualitätsanspruch
+## Standards
 
-Lint-Fehler, fehlschlagende Tests und flaky Tests sind keine Randnotizen, sondern Arbeit, die
-noch offen ist. Beim Prüfen von UI genau hinsehen statt durchzuwinken.
+Lint errors, failing tests and flaky tests are not footnotes, they are unfinished work. When
+checking UI, look closely instead of waving it through.
 
 ## Commits
 
-Keinen Agent-Namen als Co-Author anhängen, sofern nicht ausdrücklich gewünscht.
+Do not append an agent name as co-author unless I explicitly ask for it.
 
-## Rückfragen vor teuren Aktionen
+## Ask before expensive actions
 
-Bevor du Features nutzt, die sofort einen großen Schwarm Subagents starten (dynamic workflows,
-ultra code und Ähnliches): Trade-offs erklären und explizit um Erlaubnis fragen.
+Before using features that immediately spawn a large swarm of subagents (dynamic workflows, ultra
+code and the like): explain the trade-offs and ask for explicit approval.

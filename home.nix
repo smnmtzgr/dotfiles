@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 let
-  # Das Repo liegt direkt unter ~/code/dotfiles - keine Symlink-Indirektion.
+  # The repo lives directly at ~/code/dotfiles - no symlink indirection.
   dotfiles = "${config.home.homeDirectory}/code/dotfiles";
 in
 
@@ -9,7 +9,7 @@ in
   home.username = "simon";
   home.homeDirectory = "/home/simon";
 
-  # Nicht aendern, auch nicht beim Update von Home Manager.
+  # Do not change, not even when updating Home Manager.
   home.stateVersion = "25.11";
 
   home.packages = [
@@ -22,24 +22,25 @@ in
     pkgs.neovim
     pkgs.nerd-fonts.hack
 
-    # Node aus Nix statt aus apt - die AXI-Tools werden hierueber global installiert.
+    # Node from Nix rather than apt - the AXI tools are installed globally through it.
     pkgs.nodejs_24
 
-    # Browser fuer chrome-devtools-axi. In der WSL gibt es sonst keinen.
+    # Browser for chrome-devtools-axi. WSL has none otherwise.
     pkgs.chromium
 
     pkgs.bat
     pkgs.eza
     pkgs.zoxide
 
-    # Herdr aus dem Flake-Input installieren
+    # Herdr from the flake input
     inputs.herdr.packages.${pkgs.system}.default
   ];
 
   fonts.fontconfig.enable = true;
 
-  # Alles unter home/ wird live ins Repo zurueckverlinkt: Datei im Repo editieren
-  # wirkt sofort, ohne rebuild. Nur home.nix/flake.nix brauchen ./rebuild.sh.
+  # Everything under home/ is symlinked live back into the repo: editing a file
+  # there takes effect immediately, no rebuild. Only home.nix and flake.nix
+  # require ./rebuild.sh.
   home.file.".config/wezterm".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
   home.file.".config/nvim".source =
@@ -51,7 +52,7 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.claude/settings.json";
   home.file.".claude/statusline-command.sh".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.claude/statusline-command.sh";
-  # Eine Quelle fuer alle Agent-Harnesses.
+  # One source of truth for every agent harness.
   home.file.".claude/CLAUDE.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
   home.file.".codex/AGENTS.md".source =
@@ -59,16 +60,16 @@ in
 
   home.sessionVariables = {
     EDITOR = "nvim";
-    # npm-Prefix aus /usr/local herausholen, sonst braucht `npm i -g` sudo
-    # und firstmates Bootstrap scheitert.
+    # Move the npm prefix out of /usr/local, otherwise `npm i -g` needs sudo
+    # and firstmate's bootstrap fails.
     NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
-    # chrome-devtools-axi soll den Nix-Chromium nehmen, nicht chrome.exe.
+    # Point chrome-devtools-axi at the Nix chromium instead of chrome.exe.
     CHROME_PATH = "${pkgs.chromium}/bin/chromium";
   };
 
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-global/bin"
-    # treehouse und no-mistakes - von firstmates Installern hierher gelegt.
+    # treehouse and no-mistakes - placed here by firstmate's installers.
     "${config.home.homeDirectory}/.local/bin"
   ];
 
@@ -76,8 +77,8 @@ in
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    # OSC 7 meldet dem Terminal das aktuelle Verzeichnis. Ohne das kann WezTerm
-    # es nicht ermitteln, und ein neuer Tab oeffnet nicht dort, wo man gerade ist.
+    # OSC 7 reports the current directory to the terminal. Without it WezTerm
+    # cannot determine a pane's directory, so a new tab does not open where you are.
     initContent = ''
       _osc7_cwd() {
         printf '\033]7;file://%s%s\033\\' "''${HOST}" "''${PWD}"
@@ -86,9 +87,10 @@ in
       add-zsh-hook chpwd _osc7_cwd
       _osc7_cwd
 
-      # hmu = home-manager update. Ohne Argument alle Flake-Inputs, mit Argument
-      # gezielt einen (z.B. `hmu herdr`) - deshalb Funktion statt Alias.
-      # Das cd laeuft in einer Subshell, damit die eigene Shell stehen bleibt.
+      # hmu = home-manager update. Without an argument it updates every flake
+      # input, with one it updates just that input (e.g. `hmu herdr`) - hence a
+      # function rather than an alias. The cd runs in a subshell so the calling
+      # shell stays where it is.
       hmu() {
         ( cd ~/code/dotfiles && nix flake update "$@" ) && ~/code/dotfiles/rebuild.sh
       }
@@ -113,9 +115,9 @@ in
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = true;
-      # gh als Credential-Helper fuer HTTPS-Remotes. Muss hier stehen, weil
-      # `gh auth setup-git` in die von Nix verwaltete, read-only gitconfig
-      # schreiben wuerde.
+      # gh as the credential helper for HTTPS remotes. It has to live here
+      # because `gh auth setup-git` would write into the Nix-managed, read-only
+      # gitconfig.
       credential."https://github.com".helper = "!${pkgs.gh}/bin/gh auth git-credential";
       credential."https://gist.github.com".helper = "!${pkgs.gh}/bin/gh auth git-credential";
     };

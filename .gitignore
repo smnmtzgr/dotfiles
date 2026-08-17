@@ -3,12 +3,12 @@ result
 result-*
 .direnv/
 
-# Claude Code: lokale, maschinenspezifische Overrides und Credentials
+# Claude Code: machine-local overrides and credentials
 **/.claude/settings.local.json
 **/.claude/.credentials.json
 **/.credentials.json
 
-# herdr Runtime-State
+# herdr runtime state
 *.log
 session.json
 *.sock

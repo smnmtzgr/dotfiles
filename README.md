@@ -1,86 +1,96 @@
 # dotfiles
 
-Reproduzierbares Setup für Agentic Engineering unter **WSL2 / Ubuntu**, verwaltet mit Nix und
-Home Manager (standalone, ohne NixOS).
+Reproducible agentic-engineering setup for **WSL2 / Ubuntu**, managed with Nix and Home Manager
+(standalone, no NixOS).
 
-Inspiriert von [kunchenguid/dotfiles](https://github.com/kunchenguid/dotfiles) und dem Video
-[L8 Principal's Agentic Dev Environment From Scratch](https://youtu.be/5N-okeDdIuI), portiert von
-macOS/nix-darwin auf WSL/Linux.
+Inspired by [kunchenguid/dotfiles](https://github.com/kunchenguid/dotfiles) and the video
+[L8 Principal's Agentic Dev Environment From Scratch](https://youtu.be/5N-okeDdIuI), ported from
+macOS/nix-darwin to WSL/Linux.
 
-## Installation auf einer neuen Maschine
+## Installing on a new machine
 
 ```sh
-# 1. Nix installieren (Determinate Systems)
+# 1. Install Nix (Determinate Systems)
 curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 
-# 2. Repo klonen - der Pfad ist wichtig, home.nix verweist darauf
+# 2. Clone - the path matters, home.nix points at it
 git clone https://github.com/smnmtzgr/dotfiles ~/code/dotfiles
 
-# 3. Anwenden
+# 3. Apply
 cd ~/code/dotfiles && ./rebuild.sh
 ```
 
-Beim ersten Lauf muss `home-manager` selbst noch vorhanden sein:
+On the very first run `home-manager` isn't installed yet, so bootstrap it once:
 
 ```sh
 nix run home-manager/master -- switch --flake ~/code/dotfiles#simon
 ```
 
-## Alltag
+## Day to day
 
 | | |
 |---|---|
-| `./rebuild.sh` (oder Alias `hm`) | Änderungen an `home.nix` / `flake.nix` anwenden |
-| `nix flake update` | Alle Inputs aktualisieren |
-| `nix flake check --no-build` | Config prüfen, ohne etwas zu ändern |
+| `./rebuild.sh` (or the `hm` alias) | Apply changes to `home.nix` / `flake.nix` |
+| `hmu` | Update all flake inputs, then apply |
+| `hmu herdr` | Update a single input, then apply |
+| `nix flake check --no-build` | Validate without changing anything |
+| `home-manager generations` | List generations; roll back with `<path>/activate` |
 
-Alles unter `home/` ist per `mkOutOfStoreSymlink` **live** ins Repo verlinkt: nvim-, WezTerm-,
-herdr- und Claude-Configs wirken sofort nach dem Speichern, ohne Rebuild. Nur `home.nix` und
-`flake.nix` brauchen `./rebuild.sh`.
+Everything under `home/` is symlinked **live** into this repo via `mkOutOfStoreSymlink`: the nvim,
+WezTerm, herdr and Claude configs take effect the moment you save, no rebuild needed. Only
+`home.nix` and `flake.nix` require `./rebuild.sh`.
 
-## Struktur
+## Layout
 
 ```
-flake.nix     Inputs (nixpkgs, home-manager, herdr) und homeConfigurations."simon"
-home.nix      Pakete, zsh, git, starship, Symlinks
+flake.nix     Inputs (nixpkgs, home-manager, herdr) and homeConfigurations."simon"
+home.nix      Packages, zsh, git, starship, symlinks
 rebuild.sh    home-manager switch
+docs/         Printable keybinding reference (German)
 home/
-  AGENTS.md              -> ~/.claude/CLAUDE.md und ~/.codex/AGENTS.md
+  AGENTS.md              -> ~/.claude/CLAUDE.md and ~/.codex/AGENTS.md
   .claude/               settings.json, statusline-command.sh
   .config/nvim/          lazy.nvim, rose-pine, oil, snacks, neogit
-  .config/wezterm/       wird von Windows aus geladen, siehe unten
-  .config/herdr/         Keybindings für den Multiplexer
+  .config/wezterm/       loaded from the Windows side, see below
+  .config/herdr/         keybindings for the multiplexer
 ```
 
-## WezTerm unter Windows
+## WezTerm on Windows
 
-WezTerm läuft als Windows-Prozess und kann keine WSL-Pfade als Config lesen. Die echte Config
-liegt trotzdem hier im Repo; auf der Windows-Seite steht nur ein Stub in
-`C:\Users\<user>\.wezterm.lua`:
+WezTerm runs as a Windows process and cannot read a WSL path as its config. The real config still
+lives here in the repo; the Windows side only holds a stub at `C:\Users\<user>\.wezterm.lua`:
 
 ```lua
 return dofile('\\\\wsl.localhost\\Ubuntu\\home\\simon\\code\\dotfiles\\home\\.config\\wezterm\\wezterm.lua')
 ```
 
-Zusätzlich muss die **Hack Nerd Font unter Windows** installiert sein
-([nerdfonts.com](https://www.nerdfonts.com/font-downloads)) - `fonts.fontconfig` in der WSL
-betrifft nur Linux-Anwendungen, nicht den Windows-Renderer von WezTerm.
+Two consequences worth knowing:
+
+- **WezTerm's config auto-reload does not fire** for a file pulled in via `dofile()` over UNC.
+  After editing, press `Ctrl+Shift+R` or restart WezTerm.
+- The **Hack Nerd Font must be installed on Windows**
+  ([nerdfonts.com](https://www.nerdfonts.com/font-downloads)). `fonts.fontconfig` in WSL only
+  covers Linux applications, not WezTerm's Windows renderer.
+
+Getting a new tab to open in the WSL home directory takes three separate settings, because WezTerm
+resolves three different paths: `wsl_domains.default_cwd` (Linux path), `config.default_cwd` (UNC
+path), and OSC 7 emitted from zsh so WezTerm can know a pane's directory at all.
 
 ## Make it yours
 
-Wer das forkt, ändert mindestens:
+If you fork this, change at least:
 
-- `home.username` / `home.homeDirectory` in `home.nix` und den Attributnamen
-  `homeConfigurations."simon"` in `flake.nix` (auch in `rebuild.sh`)
-- `programs.git.settings.user.*` in `home.nix` - sonst committet man unter fremder Identität
-- den WSL-Pfad im WezTerm-Stub oben
-- `home/AGENTS.md` - das sind meine persönlichen Agent-Anweisungen, sie werden sonst still
-  von Claude Code und Codex übernommen
+- `home.username` / `home.homeDirectory` in `home.nix`, and the attribute name
+  `homeConfigurations."simon"` in `flake.nix` (referenced by `rebuild.sh` too)
+- `programs.git.settings.user.*` in `home.nix` - otherwise you commit under someone else's identity
+- the WSL path in the WezTerm stub above
+- `home/AGENTS.md` - those are my personal agent instructions, and they are picked up silently by
+  Claude Code and Codex
 
-## Nicht in diesem Repo
+## Deliberately not in this repo
 
-Die Toolchain für [firstmate](https://github.com/kunchenguid/firstmate) (`no-mistakes`,
-`treehouse`, `gh-axi`, `lavish-axi`, `tasks-axi`, `quota-axi`, `chrome-devtools-axi`) wird
-bewusst **nicht** über Nix verwaltet. firstmate verlangt jeweils die neueste veröffentlichte
-Version und meldet ältere beim Session-Start als fehlend; ein Nix-Pin würde permanent dagegen
-arbeiten. Diese Tools installiert firstmates eigener Bootstrap nach `~/.npm-global`.
+The toolchain for [firstmate](https://github.com/kunchenguid/firstmate) (`no-mistakes`,
+`treehouse`, `gh-axi`, `lavish-axi`, `tasks-axi`, `quota-axi`, `chrome-devtools-axi`) is **not**
+managed through Nix. firstmate requires the latest published version of each and reports older ones
+as missing on every session start, so a Nix pin would permanently fight its bootstrap. Those tools
+are installed imperatively into `~/.npm-global/bin` and `~/.local/bin` instead.

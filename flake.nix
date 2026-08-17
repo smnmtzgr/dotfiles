@@ -21,7 +21,7 @@
       homeConfigurations."simon" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        # Hier werden die Inputs an Ihre home.nix übergeben:
+        # Pass the flake inputs through to home.nix (herdr is installed from one).
         extraSpecialArgs = { inherit inputs; };
 
         # Specify your home configuration modules here, for example,

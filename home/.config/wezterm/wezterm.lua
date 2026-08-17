@@ -2,14 +2,16 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
--- WezTerm laeuft als Windows-Prozess und startet direkt in die WSL.
--- Diese Datei wird von C:\Users\simon\.wezterm.lua per dofile() geladen.
+-- WezTerm runs as a Windows process and starts straight into WSL.
+-- This file is pulled in from C:\Users\simon\.wezterm.lua via dofile().
 config.default_domain = "WSL:Ubuntu"
 
--- default_domain legt nur fest, WO die Shell laeuft, nicht in welchem Verzeichnis.
--- Ohne das Folgende erbt WezTerm das cwd vom Windows-Prozess: /mnt/c/Users/simon.
--- Das braucht zwei Angaben, weil WezTerm zwei getrennte Pfade auswertet:
--- die Domain (Linux-Pfad) und das initiale Fenster (Windows-/UNC-Pfad).
+-- default_domain only decides WHERE the shell runs, not in which directory.
+-- Without the following, WezTerm inherits the cwd from the Windows process and
+-- lands in /mnt/c/Users/simon. It takes two settings because WezTerm resolves
+-- two separate paths: the domain (Linux path) and the initial window (UNC path).
+-- The third piece is OSC 7 from zsh, see home.nix - without it WezTerm cannot
+-- know a pane's directory, so a new tab never inherits it.
 local wsl_domains = wezterm.default_wsl_domains()
 for _, domain in ipairs(wsl_domains) do
 	domain.default_cwd = "/home/simon"
