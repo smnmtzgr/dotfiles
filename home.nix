@@ -85,6 +85,13 @@ in
       autoload -Uz add-zsh-hook
       add-zsh-hook chpwd _osc7_cwd
       _osc7_cwd
+
+      # hmu = home-manager update. Ohne Argument alle Flake-Inputs, mit Argument
+      # gezielt einen (z.B. `hmu herdr`) - deshalb Funktion statt Alias.
+      # Das cd laeuft in einer Subshell, damit die eigene Shell stehen bleibt.
+      hmu() {
+        ( cd ~/code/dotfiles && nix flake update "$@" ) && ~/code/dotfiles/rebuild.sh
+      }
     '';
     shellAliases = {
       ".." = "cd ..";
