@@ -58,6 +58,7 @@ home/
   .config/nvim/          lazy.nvim, rose-pine, oil, snacks, neogit
   .config/wezterm/       loaded from the Windows side, see below
   .config/herdr/         keybindings for the multiplexer
+  firstmate/             crew-dispatch.json -> ~/code/firstmate/config/
 ```
 
 ## WezTerm on Windows
