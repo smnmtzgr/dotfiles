@@ -62,6 +62,9 @@ in
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
   home.file.".codex/AGENTS.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
+  # firstmate's crew-dispatch rules, editable in place.
+  home.file."code/firstmate/config/crew-dispatch.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/firstmate/crew-dispatch.json";
 
   home.sessionVariables = {
     EDITOR = "nvim";

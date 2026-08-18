@@ -1,0 +1,35 @@
+{
+  "rules": [
+    {
+      "when": "The task is a trivial mechanical edit: a rote rename, a formatting or lint sweep, a targeted typo or wording fix, a dependency version bump, or gathering files with no design judgement involved.",
+      "use": { "harness": "claude", "model": "haiku", "effort": "low" },
+      "why": "Narrow, unambiguous work with an explicit bounded path. The cheapest fast profile is enough and this is the largest share of routine dispatches."
+    },
+    {
+      "when": "The task is ordinary, well-scoped implementation work: a single feature or bug fix whose shape is already clear at intake, including carrying it through the full validation pipeline to a green PR.",
+      "use": { "harness": "claude", "model": "sonnet", "effort": "medium" },
+      "why": "The default working profile. Most ship tasks land here, and the validation pipeline is the bulk of the token spend rather than the reasoning."
+    },
+    {
+      "when": "The task is investigation, diagnosis, bug reproduction, planning, or an audit whose deliverable is knowledge rather than a code change.",
+      "use": { "harness": "claude", "model": "sonnet", "effort": "xhigh" },
+      "why": "Ambiguous open-ended reasoning benefits from depth far more than from a larger model, and a scout produces no pipeline load to pay for."
+    },
+    {
+      "when": "The task changes Firstmate's own shared tracked material: AGENTS.md, bin/, .agents/skills/, public skills/, CI workflows, or repo-level contracts.",
+      "use": { "harness": "claude", "model": "sonnet", "effort": "high" },
+      "why": "This surface carries safety boundaries and one-owner contracts, so a shallow profile is the wrong economy even when the diff looks small."
+    },
+    {
+      "when": "The task is a large or ambiguous multi-file change, a risky refactor, a migration, work that must hold many interacting parts in mind at once, or work where an earlier attempt on a cheaper profile already failed.",
+      "use": [
+        { "harness": "claude", "model": "opus", "effort": "high" },
+        { "harness": "claude", "model": "sonnet", "effort": "xhigh" }
+      ],
+      "why": "Genuinely hard work keeps the strongest reasoning class, but resolve the pair against current quota so a full session window falls back to depth on sonnet instead of burning extra usage."
+    }
+  ],
+  "default": [
+    { "harness": "claude", "model": "sonnet", "effort": "medium" }
+  ]
+}
