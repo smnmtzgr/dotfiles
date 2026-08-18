@@ -33,8 +33,13 @@ in
     pkgs.zoxide
 
     # Herdr from the flake input
-    inputs.herdr.packages.${pkgs.system}.default
+    inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
+
+  # Home Manager's manpage generation pulls the nixpkgs path into a derivation
+  # without a store context, which makes every rebuild print a warning. We read
+  # the options online anyway, so the manpage is not worth the noise.
+  manual.manpages.enable = false;
 
   fonts.fontconfig.enable = true;
 
