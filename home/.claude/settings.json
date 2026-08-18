@@ -13,17 +13,6 @@
     ]
   },
   "model": "opus",
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh"
-  },
-  "theme": "dark",
-  "language": "de",
-  "voiceEnabled": true,
-  "voice": {
-    "enabled": true,
-    "mode": "hold"
-  },
   "hooks": {
     "SessionStart": [
       {
@@ -67,5 +56,17 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "language": "de",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "theme": "dark",
+  "voiceEnabled": true,
+  "skipDangerousModePermissionPrompt": true
 }
