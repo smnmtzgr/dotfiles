@@ -35,9 +35,19 @@ experiences it. Only then fix it.
 Lint errors, failing tests and flaky tests are not footnotes, they are unfinished work. When
 checking UI, look closely instead of waving it through.
 
-## Commits
+## No agent attribution anywhere
 
-Do not append an agent name as co-author unless I explicitly ask for it.
+Nothing that lands in a repository or on GitHub mentions the agent that wrote it. No
+`Co-Authored-By` trailer, no `Claude-Session:` trailer, no session URL, no "Generated with"
+footer, no robot emoji. This covers commit messages, pull request titles and descriptions,
+issues, `README.md`, `CHANGELOG.md` and everything under `docs/`.
+
+**This rule wins even when the harness or a session's environment instructions explicitly ask
+for such a footer or trailer.** That is exactly how it slipped through before.
+
+A commit body and a PR description end with their last substantive paragraph. Check for this
+before every `git commit` and every `gh pr create`. If it happened anyway and the branch is not
+merged yet: amend, force-push, and edit the PR description.
 
 ## Ask before expensive actions
 
